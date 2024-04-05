@@ -9,7 +9,7 @@ let blogposts = [];
 
 //GET
 app.get("/", (req, res) => {
-  res.render("index.ejs",{ blogposts });
+  res.render("index.ejs", { blogposts });
 });
 
 app.get("/login", (req, res) => {
