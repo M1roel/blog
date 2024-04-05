@@ -1,5 +1,7 @@
 <%- include ("partials/header")%>
 <body>
-  <%- include ("blogpost")%>
+  <% blogposts.forEach(blogpost => { %>
+    <%- include("blogpost", { blogpost: blogpost }) %>
+  <% }) %>
 </body>
 <%- include ("partials/footer")%>

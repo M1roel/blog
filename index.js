@@ -3,17 +3,13 @@ const app = express();
 const port = 3000;
 
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true })); // Middleware zum Verarbeiten von Formulardaten
+
+let blogposts = [];
 
 //GET
 app.get("/", (req, res) => {
-  const data = {};
-  // Hier wird das aktuelle Datum erzeugt und dem Datenobjekt hinzugefügt
-  const currentDate = new Date();
-  data.currentDate = `${currentDate.getDate()}.${
-    currentDate.getMonth() + 1
-  }.${currentDate.getFullYear()}`;
-
-  res.render("index.ejs", data);
+  res.render("index.ejs",{ blogposts });
 });
 
 app.get("/login", (req, res) => {
@@ -38,7 +34,11 @@ app.get("/categories", (req, res) => {
 
 //POST
 app.post("/blog", (req, res) => {
-  //Do something with the data
+  const { title, content } = req.body;
+  const currentDate = new Date(); // Aktuelles Datum
+  const newBlogpost = { title, content, date: currentDate }; // Blogpost-Datensatz
+  blogposts.push(newBlogpost); // Blogpost zum Array hinzufügen
+  res.redirect("/"); // Umleitung zur Homepage
   res.sendStatus(201);
 });
 
